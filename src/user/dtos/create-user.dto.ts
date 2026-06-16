@@ -1,10 +1,11 @@
 import {
     IsEmail,
-    IsNotEmpty,
+    IsNotEmpty, IsOptional,
     IsString,
     MaxLength,
     MinLength
 } from "class-validator";
+import {CreateProfileDto} from "../../profile/dtos/create-profile.dto";
 
 export class CreateUserDto {
 
@@ -21,5 +22,8 @@ export class CreateUserDto {
     @MinLength(8)
     @MaxLength(100)
     password : string;
+
+    @IsOptional()
+    profile: CreateProfileDto | null;
 
 }
