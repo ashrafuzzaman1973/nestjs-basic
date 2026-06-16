@@ -16,19 +16,19 @@ export class UsersService{
 
 
      getAllUsers(){
-        return this.userRepository.find();
+        return this.userRepository.find({
+            relations: {
+                profile : true
+            }
+        });
      }
 
 
     public async createUser(userDto : CreateUserDto){
         userDto.profile = userDto.profile ?? {}
-        let profile = this.profileRepository.create(userDto.profile)
-        await this.profileRepository.save(profile)
 
         // @ts-ignore
         let user = this.userRepository.create(userDto);
-
-        user.profile = profile;
 
         return await this.userRepository.save(user);
      }
