@@ -2,12 +2,13 @@ import {
     Column,
     CreateDateColumn,
     DeleteDateColumn,
-    Entity, JoinColumn,
+    Entity, JoinColumn, OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
 import {Profile} from "../profile/profile.entity";
+import {Tweet} from "../tweet/tweet.entity";
 
 @Entity()
 export class User {
@@ -46,8 +47,10 @@ export class User {
     @OneToOne(()=>Profile,(profile)=>profile.user,{
         cascade : ['insert']
     })
-    @JoinColumn()
     profile?: Profile;
+
+    @OneToMany(()=>Tweet, (tweet) => tweet.user)
+    tweets : Tweet[];
 
     @CreateDateColumn()
     createdAt : Date;
