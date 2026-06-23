@@ -54,4 +54,12 @@ export class TweetService {
         return await this.tweetRepository.save(tweet);
     }
 
+    public async deleteTweet(id: number) {
+        await this.tweetRepository.delete({
+            id: id
+        })
+
+        return { deleted : true ,id}
+    }
+
 }
