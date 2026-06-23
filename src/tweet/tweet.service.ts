@@ -1,10 +1,11 @@
-import { Injectable} from '@nestjs/common';
+import {Injectable, NotFoundException} from '@nestjs/common';
 import {UsersService} from "../user/users.service";
 import {Repository} from "typeorm";
 import {Tweet} from "./tweet.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {CreateTweetDto} from "./dto/create-tweet.dto";
 import {HashtagService} from "../hashtag/hashtag.service";
+import {UpdateTweetDto} from "./dto/update-tweet.dto";
 
 @Injectable()
 export class TweetService {
@@ -17,7 +18,7 @@ export class TweetService {
    public async getTweets(userId: number) {
       return await this.tweetRepository.find({
             where: {user: {id: userId}},
-            relations: { user: true}
+            relations: { user: true,hashtags : true}
         })
    }
 
@@ -25,11 +26,32 @@ export class TweetService {
         let user:any =await this.userService.findUserById(createTweetDto.userId);
 
         let hashtags:any = await this.hashtagService.findByHashtags(createTweetDto.hashtags ?? [])
-        console.log(createTweetDto.hashtags)
 
         let tweet = this.tweetRepository.create({...createTweetDto,user:user,hashtags:hashtags})
 
         return await this.tweetRepository.save(tweet)
+    }
+
+
+    public async updateTweet(updateTweetDto:UpdateTweetDto){
+
+        let hashtags:any = await this.hashtagService.findByHashtags(updateTweetDto.hashtags ?? []);
+
+        let tweet = await this.tweetRepository.findOneBy({
+            id: updateTweetDto.id
+        })
+
+        if (!tweet) {
+            throw new NotFoundException('Tweet not found');
+        }
+
+        tweet.text = updateTweetDto.text ?? tweet.text;
+
+        tweet.image = updateTweetDto.image ?? tweet.image;
+
+        tweet.hashtags = hashtags;
+
+        return await this.tweetRepository.save(tweet);
     }
 
 }
