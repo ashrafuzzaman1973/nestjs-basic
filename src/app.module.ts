@@ -9,7 +9,8 @@ import { ProfileModule } from './profile/profile.module';
 import { HashtagModule } from './hashtag/hashtag.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import * as process from "node:process";
-import {appConfig} from "./config/app.config";
+import appConfig from "./config/app.config";
+import databaseConfig from "./config/database.config";
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -20,7 +21,7 @@ const ENV = process.env.NODE_ENV;
       ConfigModule.forRoot({
         isGlobal: true,
         envFilePath : !ENV ? '.env' : `.env.${ENV.trim()}`,
-        load : [appConfig]
+        load : [appConfig,databaseConfig]
       }),
     TypeOrmModule.forRootAsync({
     imports : [ConfigModule],
