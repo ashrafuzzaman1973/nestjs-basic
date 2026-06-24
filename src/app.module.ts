@@ -11,6 +11,7 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
 import * as process from "node:process";
 import appConfig from "./config/app.config";
 import databaseConfig from "./config/database.config";
+import evnValidator from "./config/env.validation"
 
 const ENV = process.env.NODE_ENV;
 @Module({
@@ -21,7 +22,8 @@ const ENV = process.env.NODE_ENV;
       ConfigModule.forRoot({
         isGlobal: true,
         envFilePath : !ENV ? '.env' : `.env.${ENV.trim()}`,
-        load : [appConfig,databaseConfig]
+        load : [appConfig,databaseConfig],
+        validationSchema : evnValidator
       }),
     TypeOrmModule.forRootAsync({
     imports : [ConfigModule],
