@@ -36,11 +36,11 @@ export class PaginationProvider {
                 totalPages : totalPages
             },
             links :{
-                first : string,
-                last : string,
-                current : currentPage,
-                next : nextPage,
-                previous : prevPage
+                // first : string,
+                // last : string,
+                // current : currentPage,
+                // next : nextPage,
+                // previous : prevPage
             }
         }
         return result
