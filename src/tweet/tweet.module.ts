@@ -5,10 +5,15 @@ import {TypeOrmModule} from "@nestjs/typeorm";
 import {Tweet} from "./tweet.entity";
 import {UsersModule} from "../user/users.module";
 import {HashtagModule} from "../hashtag/hashtag.module";
+import {PaginationModule} from "../common/pagination/pagination.module";
 
 @Module({
   controllers: [TweetController],
   providers: [TweetService],
-  imports : [UsersModule,HashtagModule,TypeOrmModule.forFeature([Tweet])]
+  imports : [
+      UsersModule,
+      PaginationModule,
+      HashtagModule,TypeOrmModule.forFeature([Tweet])
+  ]
 })
 export class TweetModule {}

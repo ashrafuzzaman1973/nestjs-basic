@@ -6,25 +6,29 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {CreateTweetDto} from "./dto/create-tweet.dto";
 import {HashtagService} from "../hashtag/hashtag.service";
 import {UpdateTweetDto} from "./dto/update-tweet.dto";
+import {PaginationQueryDto} from "../common/pagination/dto/pagination-query.dto";
+import {PaginationProvider} from "../common/pagination/pagination.provider";
 
 @Injectable()
 export class TweetService {
 
     constructor(private readonly userService: UsersService,
                 private readonly hashtagService: HashtagService,
-                @InjectRepository(Tweet) private readonly tweetRepository : Repository<Tweet>
+                @InjectRepository(Tweet) private readonly tweetRepository : Repository<Tweet>,
+                private readonly paginationProvider : PaginationProvider
                 ) {
     }
-   public async getTweets(userId: number) {
+   public async getTweets(userId: number,pageQueryDto:PaginationQueryDto) {
        let user:any =await this.userService.findUserById(userId);
        if (!user){
            throw new NotFoundException(`User with id ${userId} not found.`);
        }
 
-       return await this.tweetRepository.find({
-            where: {user: {id: userId}},
-            relations: { user: true,hashtags : true}
-        })
+       return await this.paginationProvider.paginateQuery(
+           pageQueryDto,
+           this.tweetRepository,
+           {user : {id:userId}}
+       );
    }
 
     public async createTweet(createTweetDto: CreateTweetDto) {
