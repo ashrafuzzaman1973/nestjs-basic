@@ -4,6 +4,7 @@ import {Tweet} from "./tweet.entity";
 import {CreateTweetDto} from "./dto/create-tweet.dto";
 import {UpdateTweetDto} from "./dto/update-tweet.dto";
 import {PaginationQueryDto} from "../common/pagination/dto/pagination-query.dto";
+import {Paginated} from "../common/pagination/paginater.interface";
 
 @Controller('tweet')
 export class TweetController {
@@ -14,8 +15,7 @@ export class TweetController {
     public GetTweets(
         @Param('userid',ParseIntPipe) userid: number,
         @Query() paginationQueryDto: PaginationQueryDto,
-    ){
-        console.log(paginationQueryDto);
+    ):Promise<Paginated<Tweet>> {
         return this.tweetService.getTweets(userid,paginationQueryDto);
     }
 

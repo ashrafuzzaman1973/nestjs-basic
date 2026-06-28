@@ -2,10 +2,11 @@ import {
     Body,
     Controller, Delete,
     Get, Param, ParseIntPipe,
-    Post,
+    Post, Query,
 } from "@nestjs/common";
 import {UsersService} from "./users.service";
 import {CreateUserDto} from "./dtos/create-user.dto";
+import {PaginationQueryDto} from "../common/pagination/dto/pagination-query.dto";
 
 @Controller('users')
 export class UsersController{
@@ -14,8 +15,8 @@ export class UsersController{
     constructor(private usersService : UsersService) {
     }
     @Get()
-    getUsers(){
-        return this.usersService.getAllUsers();
+    getUsers(@Query() pageQueryDto:PaginationQueryDto){
+        return this.usersService.getAllUsers(pageQueryDto);
     }
 
     @Get(':id')
