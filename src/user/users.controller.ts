@@ -23,10 +23,10 @@ export class UsersController{
     getUserById(@Param('id') id: number){
         return this.usersService.findUserById(id);
     }
-    @Post()
-    createUser(@Body() user: CreateUserDto) {
-      return  this.usersService.createUser(user)
-    }
+    // @Post()
+    // createUser(@Body() user: CreateUserDto) {
+    //   return  this.usersService.createUser(user)
+    // }
 
     @Delete(':id')
     public deleteUser(@Param('id', ParseIntPipe) id: number) {
