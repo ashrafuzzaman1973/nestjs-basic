@@ -1,23 +1,47 @@
-import { Injectable,Inject,forwardRef } from '@nestjs/common';
+import {Injectable, Inject, forwardRef, UnauthorizedException} from '@nestjs/common';
 import {UsersService} from "../user/users.service";
 import type { ConfigType } from '@nestjs/config';
 import authConfig from "./config/auth.config";
 import {CreateUserDto} from "../user/dtos/create-user.dto";
+import {LoginDto} from "./dto/login.dto";
+import {HashingProvider} from "./provider/hashing.provider";
 
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject(UsersService)
+        @Inject(forwardRef(()=>UsersService))
         private readonly userService : UsersService,
         @Inject(authConfig.KEY)
         private readonly authConfiguration: ConfigType<typeof authConfig>,
+        @Inject(HashingProvider)
+        private readonly hashingProvider: HashingProvider,
     ) {
     }
 
     isAuthenticated : Boolean = false ;
-    login(email: string, password: string){
+    public async login(loginDto : LoginDto)  {
+        const user = await this.userService.findUserByUsername(loginDto.username);
 
-        console.log(this.authConfiguration)
+        if (!user) {
+            throw new UnauthorizedException('Invalid username or password');
+        }
+
+        let isEqual: boolean = false;
+
+        isEqual = await this.hashingProvider.comparePassword(
+            loginDto.password,
+            user.password,
+        );
+
+        if (!isEqual) {
+            throw new UnauthorizedException('Invalid username or password');
+        }
+
+        // const {password, ...authenticatedUser} = user;
+        //
+        // this.isAuthenticated = true;
+
+        return user;
     }
 
     public async signup(createUserDto: CreateUserDto){

@@ -1,9 +1,9 @@
 import {
-    BadRequestException,
-    HttpException, HttpStatus,
+    BadRequestException, forwardRef,
+    HttpException, HttpStatus, Inject,
     Injectable,
     NotFoundException,
-    RequestTimeoutException
+    RequestTimeoutException, UnauthorizedException
 } from "@nestjs/common";
 import {Repository} from "typeorm";
 import {User} from "./user.entity";
@@ -15,6 +15,7 @@ import {UserAlreadyExistsException} from "../CustomExceptions/user-already-exist
 import {PaginationProvider} from "../common/pagination/pagination.provider";
 import {PaginationQueryDto} from "../common/pagination/dto/pagination-query.dto";
 import {Paginated} from "../common/pagination/paginater.interface";
+import {HashingProvider} from "../auth/provider/hashing.provider";
 
 @Injectable()
 export class UsersService{
@@ -25,7 +26,9 @@ export class UsersService{
         private profileRepository: Repository<Profile>,
 
         private readonly configService: ConfigService,
-        private readonly paginationProvider : PaginationProvider
+        private readonly paginationProvider : PaginationProvider,
+        @Inject(forwardRef(()=>HashingProvider))
+        private readonly hashingProvider : HashingProvider
     ) {}
 
 
@@ -71,7 +74,10 @@ export class UsersService{
             }
 
             // @ts-ignore
-            let user = this.userRepository.create(userDto);
+            let user = this.userRepository.create({
+                ...userDto,
+                password: await this.hashingProvider.hashPassword(userDto.password)
+            });
 
             return await this.userRepository.save(user);
         }catch(err){
@@ -93,6 +99,30 @@ export class UsersService{
         await this.userRepository.delete(id);
 
         return { deleted: true };
+    }
+
+    public async findUserByUsername(username: string){
+        let user:User | null = null;
+        try {
+            user = await this.userRepository.findOne({
+                where: {
+                    username,
+                },
+            });
+        }catch(err){
+            if (err.code === "ECONNREFUSED"){
+                throw new RequestTimeoutException('An error occurred while getting user', {
+                    description : "Could not connect to the database",
+                });
+            }
+            throw err;
+        }
+
+        if(!user){
+            throw new UnauthorizedException('User does not exist')
+        }
+
+        return user;
     }
 
     public async findUserById(id:number){
