@@ -7,6 +7,8 @@ import {Profile} from "../profile/profile.entity";
 import {PaginationModule} from "../common/pagination/pagination.module";
 import {AuthModule} from "../auth/auth.module";
 
+
+
 @Module({
     controllers:[UsersController],
     providers:[
@@ -17,6 +19,7 @@ import {AuthModule} from "../auth/auth.module";
         PaginationModule,
         TypeOrmModule.forFeature([User,Profile]),
         forwardRef(()=>AuthModule)
+
     ]
 })
 export class UsersModule {}

@@ -2,18 +2,21 @@ import {
     Body,
     Controller, Delete,
     Get, Param, ParseIntPipe,
-    Post, Query,
+    Post, Query, UseGuards,
 } from "@nestjs/common";
 import {UsersService} from "./users.service";
 import {CreateUserDto} from "./dtos/create-user.dto";
 import {PaginationQueryDto} from "../common/pagination/dto/pagination-query.dto";
+import {AuthorizeGuard} from "../auth/guards/authorize.guard";
 
 @Controller('users')
+//@UseGuards(AuthorizeGuard)
 export class UsersController{
 
 
     constructor(private usersService : UsersService) {
     }
+
     @Get()
     getUsers(@Query() pageQueryDto:PaginationQueryDto){
         return this.usersService.getAllUsers(pageQueryDto);
