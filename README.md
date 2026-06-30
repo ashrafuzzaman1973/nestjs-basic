@@ -1,98 +1,409 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<img src="https://nestjs.com/img/logo-small.svg" width="120"/>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# NestJS Basic API
 
-## Description
+### 🚀 A Production-Ready REST API built with NestJS, TypeScript & PostgreSQL
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+[![NestJS](https://img.shields.io/badge/NestJS-v11-red.svg)](https://nestjs.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
+[![NodeJS](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Project setup
+A beginner-friendly yet production-ready REST API demonstrating modern backend development using **NestJS**, **TypeScript**, **JWT Authentication**, **PostgreSQL**, and **TypeORM**.
 
-```bash
-$ npm install
+</div>
+
+---
+
+# 📖 Overview
+
+This project demonstrates how to build a scalable backend using NestJS best practices.
+
+It includes:
+
+- JWT Authentication
+- User Management
+- Profile Management
+- Tweet CRUD APIs
+- Hashtag Module
+- PostgreSQL Database
+- TypeORM Relationships
+- DTO Validation
+- Exception Handling
+- Authentication Guards
+- Complete Postman Collection
+
+---
+
+# ✨ Features
+
+## Authentication
+
+- User Signup
+- User Login
+- JWT Authentication
+- Protected Routes
+- Password Hashing (bcrypt)
+
+---
+
+## User Module
+
+- Create User
+- Get All Users
+- Get User By ID
+- Delete User
+
+---
+
+## Profile Module
+
+- Create Profile
+- Get Profiles
+
+---
+
+## Tweet Module
+
+- Create Tweet
+- Get All Tweets
+- Update Tweet
+- Delete Tweet
+
+---
+
+## Hashtag Module
+
+- Create Hashtag
+- Delete Hashtag
+- Soft Delete Hashtag
+
+---
+
+## Validation
+
+- DTO Validation
+- class-validator
+- class-transformer
+- Global Validation Pipe
+
+---
+
+## Database
+
+- PostgreSQL
+- TypeORM
+- Entity Relationships
+- Soft Deletes
+- Timestamp Columns
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Version |
+|------------|----------|
+| NestJS | Latest |
+| TypeScript | Latest |
+| Node.js | 18+ |
+| PostgreSQL | Latest |
+| TypeORM | Latest |
+| Passport JWT | Latest |
+| JWT | Latest |
+| class-validator | Latest |
+| bcrypt | Latest |
+| Postman | Latest |
+
+---
+
+# 📂 Project Structure
+
+```
+src
+│
+├── auth
+│   ├── controllers
+│   ├── dto
+│   ├── guards
+│   ├── strategies
+│   └── services
+│
+├── user
+│
+├── profile
+│
+├── tweet
+│
+├── hashtag
+│
+├── common
+│
+├── database
+│
+└── main.ts
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+# 🔐 Authentication
 
-# watch mode
-$ npm run start:dev
+This project uses **JWT Authentication**.
 
-# production mode
-$ npm run start:prod
+### Register
+
+```
+POST /auth/signup
 ```
 
-## Run tests
+### Login
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+POST /auth/login
 ```
 
-## Deployment
+After login you'll receive:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```json
+{
+    "access_token":"YOUR_JWT_TOKEN"
+}
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Use the token:
 
-## Resources
+```
+Authorization
 
-Check out a few resources that may come in handy when working with NestJS:
+Bearer YOUR_JWT_TOKEN
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+# 📬 API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Auth
 
-## Stay in touch
+| Method | Endpoint |
+|---------|----------|
+| POST | /auth/signup |
+| POST | /auth/login |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## User
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Method | Endpoint |
+|---------|----------|
+| GET | /user |
+| GET | /user/:id |
+| POST | /user |
+| DELETE | /user/:id |
+
+---
+
+## Profile
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /profile |
+
+---
+
+## Tweet
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /tweet |
+| GET | /tweet |
+| PATCH | /tweet/:id |
+| DELETE | /tweet/:id |
+
+---
+
+## Hashtag
+
+| Method | Endpoint |
+|---------|----------|
+| POST | /hashtag |
+| DELETE | /hashtag/:id |
+| DELETE | /hashtag/soft-delete/:id |
+
+---
+
+# 📮 Postman Collection
+
+The repository includes a complete Postman collection.
+
+Features tested:
+
+- Signup
+- Login
+- JWT Authentication
+- User APIs
+- Profile APIs
+- Tweet APIs
+- Hashtag APIs
+
+Simply import the collection and start testing.
+
+---
+
+# ⚙ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/ashrafuzzaman1973/nestjs-basic.git
+```
+
+Go inside the project
+
+```bash
+cd nestjs-basic
+```
+
+Install packages
+
+```bash
+npm install
+```
+
+---
+
+# ▶ Running the Application
+
+Development
+
+```bash
+npm run start:dev
+```
+
+Production
+
+```bash
+npm run start:prod
+```
+
+Watch Mode
+
+```bash
+npm run start
+```
+
+---
+
+# 🗄 Environment Variables
+
+Create a `.env` file.
+
+```env
+PORT=3000
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=nestjs_basic
+
+JWT_SECRET=your_secret_key
+JWT_EXPIRES_IN=1d
+```
+
+---
+
+# 📸 Screenshots
+
+## Postman
+
+- JWT Authentication
+- CRUD APIs
+- Protected Routes
+- Validation
+
+(Add your Postman screenshots here)
+
+---
+
+# 🚀 Future Improvements
+
+- Refresh Token
+- Swagger Documentation
+- File Upload
+- Role Based Authorization
+- Email Verification
+- Docker Support
+- CI/CD Pipeline
+- Unit Testing
+- E2E Testing
+- Redis Caching
+
+---
+
+# 🎯 Learning Outcomes
+
+This project demonstrates:
+
+- NestJS Fundamentals
+- Modular Architecture
+- REST API Design
+- JWT Authentication
+- Guards
+- DTO Validation
+- TypeORM Relations
+- Dependency Injection
+- Exception Filters
+- PostgreSQL Integration
+
+---
+
+# 🙏 Acknowledgements
+
+Special thanks to **Procademy** for their outstanding **A Complete Nest JS Course** playlist.
+
+📺 https://www.youtube.com/@procademy
+
+The course helped me build a strong understanding of:
+
+- NestJS
+- Authentication
+- TypeORM
+- PostgreSQL
+- JWT
+- Best Practices
+- Project Structure
+
+Highly recommended for anyone starting with NestJS.
+
+---
+
+# 👨‍💻 Author
+
+**Ashrafuzzaman**
+
+GitHub
+
+https://github.com/ashrafuzzaman1973
+
+LinkedIn
+
+(Add your LinkedIn Profile)
+
+---
+
+# ⭐ Support
+
+If you found this project helpful,
+
+⭐ Star this repository
+
+🍴 Fork it
+
+📢 Share it with others
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
